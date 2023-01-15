@@ -15,7 +15,9 @@ Where the Wild Things Are	100086793.0
 The Dark Knight	1001921825.0
 Little Miss Sunshine	100523181.0
 
-Noticed the revenue coloumn is being stored as a STRING data type which brings back false results 
+That's not right
+
+Noticed the revenue coloumn is being read as a STRING data type which brings back false results 
 
 So I test usuing the CAST function to change the data type to FLOAT so SQLite reads the entire numeric value in the revenue cell
 
@@ -49,7 +51,7 @@ SELECT original_title, revenue, budget, profit
   FROM Movie_Data
   WHERE genres like '%music%'
   ORDER BY CAST(revenue AS FLOAT) desc
-  LIMIT 10
+  LIMIT 10;
 
 Results:
 original_title	revenue	budget	profit
@@ -65,3 +67,16 @@ The Muppets	165184237.0	45000000.0	120184237.0
 Hannah Montana: The Movie	155545279.0	35000000.0	120545279.0
 
 Alvin and the Chipmunks beats Les Mis in revenue but not in profit
+
+All movies the failed to bring a return on investment
+I threw in popularity because this same query will allow me to do multiple bits of analysis such as:
+Budget:Popularity
+Popularity:Revenue
+
+
+SELECT original_title, popularity, budget, revenue,
+  ROUND((revenue / budget) * 100, 2) as Return_On_Investment
+  FROM Movie_Data
+  WHERE Return_On_Investment <=100
+  ORDER BY Return_On_Investment desc;
+
