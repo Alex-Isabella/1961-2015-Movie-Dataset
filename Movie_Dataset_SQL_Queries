@@ -1,4 +1,4 @@
-Exploring/Cleaning Data using SQLite3
+Exploring/Cleaning/Analyzing Data using SQLite3
 
 Finding the 10 worst selling movies by revenue
 
@@ -8,12 +8,12 @@ SELECT original_title, revenue
   LIMIT 5;
   
 Brings back:
-original_title revenue
-Halo Legends	1000000.0
-A Hard Day's Night	1000549.0
+original_title            revenue
+Halo Legends	            1000000.0
+A Hard Day's Night	      1000549.0
 Where the Wild Things Are	100086793.0
-The Dark Knight	1001921825.0
-Little Miss Sunshine	100523181.0
+The Dark Knight	          1001921825.0
+Little Miss Sunshine	    100523181.0
 
 That's not right
 
@@ -27,21 +27,21 @@ SELECT original_title, revenue
   LIMIT 5;
 
 Which brings back:
-original_title	revenue
-Boy	43.0
-Death at a Funeral	46.0
-Wanted	134.0
-The Sum of All Fears	193.0
+original_title	          revenue
+Boy	                      43.0
+Death at a Funeral	      46.0
+Wanted	                  134.0
+The Sum of All Fears	    193.0
 The Hunt for Red October	200.0
 
 and by putting 'desc' after the CAST function we get the top 5 revenue movies which are:
 
-original_title	revenue
-Avatar	2781505847.0
+original_title	              revenue
+Avatar	                      2781505847.0
 Star Wars: The Force Awakens	2068178225.0
-Titanic	1845034188.0
-The Avengers	1519557910.0
-Jurassic World	1513528810.0
+Titanic	                      1845034188.0
+The Avengers	                1519557910.0
+Jurassic World	              1513528810.0
 
 Cross checking google searches these results are correct
 
@@ -54,29 +54,113 @@ SELECT original_title, revenue, budget, profit
   LIMIT 10;
 
 Results:
-original_title	revenue	budget	profit
+original_title	                        revenue	    budget	    profit
 Alvin and the Chipmunks: The Squeakquel	443140005.0	75000000.0	368140005.0
-Les MisÃ©rables	441809770.0	61000000.0	380809770.0
-Beauty and the Beast	377350553.0	25000000.0	352350553.0
-Alvin and the Chipmunks	361366633.0	60000000.0	301366633.0
-The Princess and the Frog	267045765.0	105000000.0	162045765.0
-Dirty Dancing	213954274.0	6000000.0	207954274.0
-Into the Woods	212902372.0	50000000.0	162902372.0
-Straight Outta Compton	201634991.0	28000000.0	173634991.0
-The Muppets	165184237.0	45000000.0	120184237.0
-Hannah Montana: The Movie	155545279.0	35000000.0	120545279.0
+Les MisÃ©rables	                        441809770.0	61000000.0	380809770.0
+Beauty and the Beast	                  377350553.0	25000000.0	352350553.0
+Alvin and the Chipmunks	                361366633.0	60000000.0	301366633.0
+The Princess and the Frog	              267045765.0	105000000.0 162045765.0
+Dirty Dancing	                          213954274.0	6000000.0   207954274.0
+Into the Woods	                        212902372.0	50000000.0  162902372.0
+Straight Outta Compton	                201634991.0	28000000.0  173634991.0
+The Muppets	                            165184237.0	45000000.0  120184237.0
+Hannah Montana: The Movie	              155545279.0	35000000.0  120545279.0
 
 Alvin and the Chipmunks beats Les Mis in revenue but not in profit
 
 All movies the failed to bring a return on investment
-I threw in popularity because this same query will allow me to do multiple bits of analysis such as:
+(I threw in popularity because this same query will allow me to do multiple bits of analysis such as:
 Budget:Popularity
-Popularity:Revenue
-
+Popularity:Revenue)
 
 SELECT original_title, popularity, budget, revenue,
   ROUND((revenue / budget) * 100, 2) as Return_On_Investment
   FROM Movie_Data
   WHERE Return_On_Investment <=100
   ORDER BY Return_On_Investment desc;
+  
+(RESULTS ON TABLEAU DASHBOARD)
 
+What movie brought back the greatest ROI?
+
+SELECT original_title, budget, revenue,
+  ROUND((revenue / budget) * 100, 2) as Return_On_Investment
+  FROM Movie_Data
+  ORDER BY Return_On_Investment desc
+  LIMIT 1
+  
+original_title	    budget revenue	  Return_On_Investment
+From Prada to Nada	93.0	 2500000.0	2688172.04
+
+Which director made the most in revenue adjust for inflation?
+
+SELECT director, 
+  ROUND(SUM(CAST(revenue_adj AS FLOAT)), 2) as total_revenue_adj_generated
+  FROM Movie_Data
+  GROUP BY director
+  ORDER BY total_revenue_adj_generated desc;
+
+director	        total_revenue_adj_generated
+Steven Spielberg	9623371543.45
+
+Who is the most popular director?
+
+SELECT director, 
+  ROUND(SUM(CAST(popularity AS FLOAT)), 2) as poplularity_index
+  FROM Movie_Data
+  GROUP BY director
+  ORDER BY poplularity_index desc
+
+director	        poplularity_index
+Christopher Nolan	60.45
+
+Who directed the most movies?
+
+SELECT director, 
+  COUNT(*) as number_of_movies_directed
+  FROM Movie_Data
+  GROUP BY director
+  ORDER BY number_of_movies_directed desc;
+
+director	      number_of_movies_directed
+John Carpenter	12
+
+What director has generated the most profit?
+
+SELECT director, 
+  ROUND(SUM(CAST(profit AS FLOAT)), 2) as total_profit
+  FROM Movie_Data
+  GROUP BY director
+  ORDER BY total_profit desc;
+
+director	    total_profit
+Peter Jackson	4857642820
+
+What director has the greatest total ROI
+
+SELECT director,
+  ROUND(SUM(revenue) / SUM(budget) * 100, 2) as Return_On_Investment
+  FROM Movie_Data
+  GROUP BY director
+  ORDER BY Return_On_Investment desc;
+  
+director	    Return_On_Investment
+Angel Gracia	2688172.04
+  
+What director, with more than 2 movies, has the greatest total ROI
+
+SELECT 
+  director, 
+  ROUND(SUM(revenue) / SUM(budget) * 100, 2) as Return_On_Investment,
+  COUNT(director) as number_of_movies_directed
+FROM 
+  Movie_Data
+GROUP BY 
+  director
+HAVING 
+  COUNT(director) >2
+ORDER BY 
+  Return_On_Investment desc;
+  
+director	    Return_On_Investment	number_of_movies_directed
+Alex Kendrick	3172.76	              4
