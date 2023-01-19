@@ -27,11 +27,11 @@ SELECT original_title, revenue
   
 Brings back:
 original_title            revenue
-Halo Legends	            1000000.0
-A Hard Day's Night	      1000549.0
-Where the Wild Things Are	100086793.0
-The Dark Knight	          1001921825.0
-Little Miss Sunshine	    100523181.0
+Halo Legends              1000000.0
+A Hard Day's Night        1000549.0
+Where the Wild Things Are 100086793.0
+The Dark Knight           1001921825.0
+Little Miss Sunshine      100523181.0
 
 That's not right
 
@@ -46,20 +46,20 @@ SELECT original_title, revenue
 
 Which brings back:
 original_title	          revenue
-Boy	                      43.0
-Death at a Funeral	      46.0
-Wanted	                  134.0
-The Sum of All Fears	    193.0
-The Hunt for Red October	200.0
+Boy                       43.0
+Death at a Funeral        46.0
+Wanted                    134.0
+The Sum of All Fears      193.0
+The Hunt for Red October  200.0
 
 and by putting 'desc' after the CAST function we get the top 5 revenue movies which are:
 
 original_title	              revenue
 Avatar                        2781505847.0
-Star Wars: The Force Awakens. 2068178225.0
-Titanic.                      1845034188.0
-The Avengers.                 1519557910.0
-Jurassic World.               1513528810.0
+Star Wars: The Force Awakens  2068178225.0
+Titanic                       1845034188.0
+The Avengers                  1519557910.0
+Jurassic World                1513528810.0
 
 Cross checking these results show they are correct
 
@@ -76,29 +76,17 @@ SELECT original_title, revenue, budget, profit
   LIMIT 10;
 
 Results:
-original_title	                        revenue	    budget	    profit
-Alvin and the Chipmunks: The Squeakquel	443140005.0	75000000.0	368140005.0
-Les MisÃ©rables	                        441809770.0	61000000.0	380809770.0
-Beauty and the Beast	                  377350553.0	25000000.0	352350553.0
-Alvin and the Chipmunks	                361366633.0	60000000.0	301366633.0
+original_title.                         revenue     budget      profit
+Alvin and the Chipmunks: The Squeakquel 443140005.0 75000000.0  368140005.0
+Les MisÃ©rables	                        441809770.0	61000000.0  380809770.0
+Beauty and the Beast	                  377350553.0	25000000.0  352350553.0
+Alvin and the Chipmunks	                361366633.0	60000000.0  301366633.0
 The Princess and the Frog	              267045765.0	105000000.0 162045765.0
 Dirty Dancing	                          213954274.0	6000000.0   207954274.0
 Into the Woods	                        212902372.0	50000000.0  162902372.0
 Straight Outta Compton	                201634991.0	28000000.0  173634991.0
 The Muppets	                            165184237.0	45000000.0  120184237.0
 Hannah Montana: The Movie	              155545279.0	35000000.0  120545279.0
-
-original_title	revenue	budget	profit
-Alvin and the Chipmunks: The Squeakquel	443140005	75000000	368140005
-Les MisÃ©rables	441809770	61000000	380809770
-Beauty and the Beast	377350553	25000000	352350553
-Alvin and the Chipmunks	361366633	60000000	301366633
-The Princess and the Frog	267045765	105000000	162045765
-Dirty Dancing	213954274	6000000	207954274
-Into the Woods	212902372	50000000	162902372
-Straight Outta Compton	201634991	28000000	173634991
-The Muppets	165184237	45000000	120184237
-Hannah Montana: The Movie	155545279	35000000	120545279
 
 Alvin and the Chipmunks beats Les Mis in revenue but not in profit
 
