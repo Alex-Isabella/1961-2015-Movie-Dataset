@@ -55,11 +55,11 @@ The Hunt for Red October	200.0
 and by putting 'desc' after the CAST function we get the top 5 revenue movies which are:
 
 original_title	              revenue
-Avatar	                      2781505847.0
-Star Wars: The Force Awakens	2068178225.0
-Titanic	                      1845034188.0
-The Avengers	                1519557910.0
-Jurassic World	              1513528810.0
+Avatar                        2781505847.0
+Star Wars: The Force Awakens. 2068178225.0
+Titanic.                      1845034188.0
+The Avengers.                 1519557910.0
+Jurassic World.               1513528810.0
 
 Cross checking these results show they are correct
 
