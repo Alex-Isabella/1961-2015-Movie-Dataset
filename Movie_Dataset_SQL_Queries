@@ -78,15 +78,15 @@ SELECT original_title, revenue, budget, profit
 Results:
 original_title.                         revenue     budget      profit
 Alvin and the Chipmunks: The Squeakquel 443140005.0 75000000.0  368140005.0
-Les MisÃ©rables	                        441809770.0	61000000.0  380809770.0
-Beauty and the Beast	                  377350553.0	25000000.0  352350553.0
-Alvin and the Chipmunks	                361366633.0	60000000.0  301366633.0
-The Princess and the Frog	              267045765.0	105000000.0 162045765.0
-Dirty Dancing	                          213954274.0	6000000.0   207954274.0
-Into the Woods	                        212902372.0	50000000.0  162902372.0
-Straight Outta Compton	                201634991.0	28000000.0  173634991.0
-The Muppets	                            165184237.0	45000000.0  120184237.0
-Hannah Montana: The Movie	              155545279.0	35000000.0  120545279.0
+Les MisÃ©rables                         441809770.0	61000000.0  380809770.0
+Beauty and the Beast                    377350553.0	25000000.0  352350553.0
+Alvin and the Chipmunks                 361366633.0	60000000.0  301366633.0
+The Princess and the Frog               267045765.0	105000000.0 162045765.0
+Dirty Dancing                           213954274.0	6000000.0   207954274.0
+Into the Woods                          212902372.0	50000000.0  162902372.0
+Straight Outta Compton                  201634991.0	28000000.0  173634991.0
+The Muppets                             165184237.0	45000000.0  120184237.0
+Hannah Montana: The Movie               155545279.0	35000000.0  120545279.0
 
 Alvin and the Chipmunks beats Les Mis in revenue but not in profit
 
