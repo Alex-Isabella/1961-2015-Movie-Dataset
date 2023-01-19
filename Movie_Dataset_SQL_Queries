@@ -1,6 +1,24 @@
 Exploring/Cleaning/Analyzing Data using SQLite3
 
-Finding the 10 worst selling movies by revenue
+Questions Answered:
+
+#1 Top 5 worst/best selling movies by revenue
+#2 Top 10 movies that are musicals by revenue
+#3 All movies the failed to bring a return on investment
+#4 What movie brought back the greatest ROI?
+#5 Top 10 Least/Most expensive movies by Cost Per Minute that made a profit
+#6 Which director made the most in revenue adjust for inflation?
+#7 Who is the most popular director?
+#8 Who directed the most movies?
+#9 What director has generated the most profit?
+#10 What director has the greatest total ROI
+#11 What director, with more than 2 movies, has the greatest total ROI
+
+
+~~~#1~~~ 
+
+
+Finding the 10 worst and best selling movies by revenue
 
 SELECT original_title, revenue
   FROM Movie_Data
@@ -43,7 +61,11 @@ Titanic	                      1845034188.0
 The Avengers	                1519557910.0
 Jurassic World	              1513528810.0
 
-Cross checking google searches these results are correct
+Cross checking these results show they are correct
+
+
+~~~#2~~~~
+
 
 Top 10 movies that are musicals by revenue
 
@@ -68,6 +90,10 @@ Hannah Montana: The Movie	              155545279.0	35000000.0  120545279.0
 
 Alvin and the Chipmunks beats Les Mis in revenue but not in profit
 
+
+~~~#3~~~
+
+
 All movies the failed to bring a return on investment
 (I threw in popularity because this same query will allow me to do multiple bits of analysis such as:
 Budget:Popularity
@@ -81,6 +107,10 @@ SELECT original_title, popularity, budget, revenue,
   
 (RESULTS ON TABLEAU DASHBOARD)
 
+
+~~~#4~~~
+
+
 What movie brought back the greatest ROI?
 
 SELECT original_title, budget, revenue,
@@ -92,7 +122,63 @@ SELECT original_title, budget, revenue,
 original_title	    budget revenue	  Return_On_Investment
 From Prada to Nada	93.0	 2500000.0	2688172.04
 
-Which director made the most in revenue adjust for inflation?
+
+~~~#5~~~
+
+
+10 Least expensive movie by Cost Per Minute that made a profit
+
+SELECT
+  original_title
+  ,runtime
+  ,budget
+  ,ROUND(budget / runtime, 2) as Cost_Per_Minute
+  ,profit
+FROM Movie_Data
+WHERE CAST(profit as FLOAT) > 0
+ORDER BY Cost_Per_Minute;
+
+original_title	          runtime	budget	  Cost_Per_Minute	  profit
+Love, Wedding, Marriage	  90	    1.0	      0.01	            1377.0
+Boy	                      87	    3.0       0.03	            40.0
+The Hunt for Red October	134	    30.0	    0.22	            170.0
+The Sum of All Fears	    124	    68.0	    0.55	            125.0
+Wanted	                  129	    75.0	    0.58	            59.0
+From Prada to Nada	      107	    93.0	    0.87	            2499907.0
+Weekend	                  96	    8000.0	  83.33	            461947.0
+Primer	                  79	    7000.0	  88.61	            417760.0
+Bellflower	              106	    17000.0	  160.38	          84236.0
+Paranormal Activity	      86	    15000.0	  174.42	          193340800.0
+
+10 Most expensive movie by Cost Per Minute that made a profit
+
+SELECT
+  original_title
+  ,runtime
+  ,budget
+  ,ROUND(budget / runtime, 2) as Cost_Per_Minute
+  ,profit
+FROM Movie_Data
+WHERE CAST(profit as FLOAT) > 0
+ORDER BY Cost_Per_Minute DESC;
+
+original_title	                            runtime	budget	     Cost_Per_Minute	profit
+Pirates of the Caribbean: On Stranger Tides	136	    380000000.0	 2794117.65	      641683000.0
+Tangled	                                    100	    260000000.0	 2600000	        331794936.0
+Men in Black 3	                            106	    225000000.0	 2122641.51	      399026776.0
+A Christmas Carol	                          96	    200000000.0	 2083333.33	      125233863.0
+Brave	                                      93	    185000000.0	 1989247.31	      353983207.0
+Avengers: Age of Ultron	                    141	    280000000.0	 1985815.6	      1125035767.0
+John Carter	                                132	    260000000.0	 1969696.97	      24139100.0
+Toy Story 3	                                103	    200000000.0	 1941747.57	      863171911.0
+X-Men: Days of Future Past	                131	    250000000.0	 1908396.95	      496000000.0
+Quantum of Solace	                          106	    200000000.0	 1886792.45	      386090727.0
+
+
+~~~#6~~~
+
+
+Which director made the most in revenue adjusted for 2010 dollars
 
 SELECT director, 
   ROUND(SUM(CAST(revenue_adj AS FLOAT)), 2) as total_revenue_adj_generated
@@ -102,6 +188,10 @@ SELECT director,
 
 director	        total_revenue_adj_generated
 Steven Spielberg	9623371543.45
+
+
+~~~#7~~~
+
 
 Who is the most popular director?
 
@@ -114,6 +204,10 @@ SELECT director,
 director	        poplularity_index
 Christopher Nolan	60.45
 
+
+~~~#8~~~
+
+
 Who directed the most movies?
 
 SELECT director, 
@@ -124,6 +218,10 @@ SELECT director,
 
 director	      number_of_movies_directed
 John Carpenter	12
+
+
+~~~#9~~~
+
 
 What director has generated the most profit?
 
@@ -136,6 +234,10 @@ SELECT director,
 director	    total_profit
 Peter Jackson	4857642820
 
+
+~~~#10~~~
+
+
 What director has the greatest total ROI
 
 SELECT director,
@@ -147,6 +249,10 @@ SELECT director,
 director	    Return_On_Investment
 Angel Gracia	2688172.04
   
+  
+~~~#11~~~
+
+
 What director, with more than 2 movies, has the greatest total ROI
 
 SELECT 
