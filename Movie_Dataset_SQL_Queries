@@ -1,4 +1,11 @@
-Exploring/Cleaning/Analyzing Data using SQLite3
+Exploring/Cleaning/Analyzing Data using SQLite3 and building a dashboard report in Tableau
+
+Workflow Pipeline:
+Kaggle(To downlaod the full dataset) 
+ >SQLite3 (For SQL queries) 
+  >Google Sheets (To download results as Excel File) 
+   >Tableau (To build final report)
+    Tableau Link: 
 
 Questions Answered:
 
